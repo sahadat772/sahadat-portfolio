@@ -1,26 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
 @import "tailwindcss";
 
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --border: #1e1e2e;
+  --text: #e8e8f0;
+  --muted: #6b6b8a;
+  --accent1: #7c3aed;
+  --accent2: #06b6d4;
+  --accent3: #f59e0b;
+  --gradient: linear-gradient(135deg, #7c3aed, #06b6d4);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Syne', sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent1);
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection {
+  background: #7c3aed40;
+  color: #fff;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.4;
+}
+
+/* Gradient orbs */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: #7c3aed20;
+  top: -100px;
+  left: -100px;
+}
+
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: #06b6d420;
+  bottom: 20%;
+  right: -100px;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: #f59e0b15;
+  top: 50%;
+  left: 40%;
+}
+
+/* Animated gradient border */
+@keyframes borderGlow {
+
+  0%,
+  100% {
+    border-color: #7c3aed60;
+  }
+
+  50% {
+    border-color: #06b6d460;
+  }
+}
+
+/* Floating animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, #ffffff15, transparent);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Fade in up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+/* Cursor glow */
+.cursor-glow {
+  width: 20px;
+  height: 20px;
+  background: #7c3aed;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: transform 0.1s;
+  z-index: 9999;
 }
